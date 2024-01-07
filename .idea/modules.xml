@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/residencyapp.iml" filepath="$PROJECT_DIR$/.idea/residencyapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/residencybackend.main.iml" filepath="$PROJECT_DIR$/.idea/modules/residencybackend.main.iml" />
     </modules>
   </component>
 </project>

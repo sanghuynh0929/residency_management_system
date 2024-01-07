@@ -1,6 +1,8 @@
 package com.example.residencybackend;
 
+import com.example.residencybackend.models.Household;
 import com.example.residencybackend.models.Resident;
+import com.example.residencybackend.repositories.HouseholdRepository;
 import com.example.residencybackend.repositories.ResidentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +16,12 @@ import java.util.Date;
 public class ResidencyBackendApplication implements CommandLineRunner {
 	private static final Logger logger =
 			LoggerFactory.getLogger(ResidencyBackendApplication.class);
-	private final ResidentRepository repository;
-	public ResidencyBackendApplication(ResidentRepository repository) {
-		this.repository = repository;
+	private final ResidentRepository residentRepository;
+	private final HouseholdRepository householdRepository;
+
+	public ResidencyBackendApplication(ResidentRepository residentRepository, HouseholdRepository householdRepository) {
+		this.residentRepository = residentRepository;
+		this.householdRepository = householdRepository;
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(ResidencyBackendApplication.class, args);
@@ -25,16 +30,20 @@ public class ResidencyBackendApplication implements CommandLineRunner {
 	// Backend Application Run Method
 	@Override
 	public void run(String... args) throws Exception {
-		repository.save(new Resident("Huynh Sang", "001203031234", new Date(2003, 9, 29),
-				"male", "Vietnamese", "Kinh", "Hai Duong, Huong Tra, Thua-Thien Hue"));
+		Resident sang = new Resident("001203031234", "Huynh Sang", new Date(2003, 9, 29),
+				"male", "Vietnamese", "Kinh", "Hai Duong, Huong Tra, Thua-Thien Hue");
+		residentRepository.save(sang);
 
-		repository.save(new Resident("Mai Chien Huu", "001303041234", new Date(2002, 1, 1),
+		residentRepository.save(new Resident("001303041234", "Mai Chien Huu", new Date(2002, 1, 1),
 				"male", "Vietnamese", "Kinh", "Khuong Trung, Thanh Xuan, Ha Noi"));
 
-		for (Resident resident : repository.findAll()) {
+		for (Resident resident : residentRepository.findAll()) {
 			logger.info("ID Number: {}, Full Name: {}",
 					resident.getIdentificationNumber(), resident.getFullName());
 		}
-		logger.info("{}", repository.findByIdentificationNumber("001203031234").get(0).getFullName());
+		logger.info("{}", residentRepository.findByIdentificationNumber("001203031234").get(0).getFullName());
+		householdRepository.save(new Household(sang, "So 12 ngo 92 pho Vuong Thua Vu", "Khuong Trung", "Thanh Xuan", "Ha Noi"));
+		logger.info("{}", householdRepository.findByHouseholdHead(residentRepository.findByIdentificationNumber("001203031234").get(0)).get(0).getAddress());
+
 	}
 }
