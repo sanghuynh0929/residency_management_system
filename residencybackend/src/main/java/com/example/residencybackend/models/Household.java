@@ -3,7 +3,7 @@ package com.example.residencybackend.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="household")
+@Table(name="household", uniqueConstraints = @UniqueConstraint(columnNames = {"head_id"}))
 public class Household {
     //region Fields
     @Id
