@@ -9,7 +9,7 @@ public class Household {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long householdId;
-    @OneToOne(cascade=CascadeType.MERGE)
+    @OneToOne(cascade=CascadeType.MERGE, fetch=FetchType.LAZY, optional = false)
     @JoinColumn(name = "head_id", foreignKey = @ForeignKey(name = "resident_id"))
     private Resident householdHead;
     private String address, ward, district, city;

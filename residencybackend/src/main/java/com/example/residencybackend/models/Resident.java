@@ -2,12 +2,13 @@ package com.example.residencybackend.models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "resident",
-    uniqueConstraints = @UniqueConstraint(columnNames = "identification_number"))
-public class Resident {
+        uniqueConstraints = @UniqueConstraint(columnNames = "identification_number"))
+public class Resident implements Serializable {
 
     //region Fields
     @Id
@@ -94,3 +95,4 @@ public class Resident {
     }
     //endregion
 }
+

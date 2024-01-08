@@ -41,9 +41,9 @@ public class ResidencyBackendApplication implements CommandLineRunner {
 			logger.info("ID Number: {}, Full Name: {}",
 					resident.getIdentificationNumber(), resident.getFullName());
 		}
-		logger.info("{}", residentRepository.findByIdentificationNumber("001203031234").get(0).getFullName());
+		logger.info("{}", residentRepository.findByIdentificationNumber("001203031234").getFullName());
 		householdRepository.save(new Household(sang, "So 12 ngo 92 pho Vuong Thua Vu", "Khuong Trung", "Thanh Xuan", "Ha Noi"));
-		logger.info("{}", householdRepository.findByHouseholdHead(residentRepository.findByIdentificationNumber("001203031234").get(0)).get(0).getAddress());
+		logger.info("{}", householdRepository.findByHouseholdHeadIdNumber("001203031234").getAddress());
 
 	}
 }
